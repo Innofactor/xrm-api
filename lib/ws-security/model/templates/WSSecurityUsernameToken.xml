@@ -1,0 +1,4 @@
+<o:UsernameToken u:Id="uuid-{{uid}}">
+	<o:Username>{{username}}</o:Username>
+	<o:Password Type="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-username-token-profile-1.0#PasswordText">{{password}}</o:Password>
+</o:UsernameToken>

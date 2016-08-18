@@ -132,6 +132,7 @@ describe("Dynamics integration tests.", function () {
             dynamics.Authenticate({}, function (err, result) {
                 assert.ok(!err, err);
                 assert.ok(result);
+                assert.ok(result.auth);
                 done();
             });
         });
@@ -158,6 +159,7 @@ describe("Dynamics integration tests.", function () {
             dynamics.Authenticate({}, function (err, result) {
                 assert.ok(!err);
                 assert.ok(result);
+                assert.ok(result.auth);
                 done();
             });
         });
@@ -184,28 +186,31 @@ describe("Dynamics integration tests.", function () {
             dynamics.Authenticate({}, function (err, result) {
                 assert.ok(!err);
                 assert.ok(result);
+                assert.ok(result.auth);
                 done();
             });
         });
     });
 
     var shouldFailDeletionWithInvalidId = function (dynamics, done) {
-        var options = {};
-        options.EntityName = 'lead';
-        options.id = '0f993360-d987-43f7-8995-ab5ffb50a43f';
+            var options = {};
+            options.EntityName = 'lead';
+            options.id = '0f993360-d987-43f7-8995-ab5ffb50a43f';
 
-        dynamics.Authenticate({}, function (err, result) {
-            assert.ok(!err);
-            assert.ok(result);
+            dynamics.Authenticate({}, function (err, authData) {
+                assert.ok(!err, err);
+                assert.ok(authData);
+                assert.ok(authData.auth);
+                options.auth = authData.auth;
 
-            dynamics.Delete(options, function (err2, result2) {
-                assert.ok(err2, err2);
-                assert.ok(!result2);
-                assert.equal(err2.message, "Lead With Id = " + options.id + " Does Not Exist");
-                done();
+                dynamics.Delete(options, function (err2, result2) {
+                    assert.ok(err2, err2);
+                    assert.ok(!result2);
+                    assert.equal(err2.message, "Lead With Id = " + options.id + " Does Not Exist");
+                    done();
+                });
             });
-        });
-    },
+        },
 
         shouldCreateALeadAndThenDeleteIt = function (dynamics, done) {
             var options = {};
@@ -213,9 +218,11 @@ describe("Dynamics integration tests.", function () {
             options.Attributes = [ { key: 'lastname', value : 'Doe'},
                 { key: 'firstname', value : 'John'}];
 
-            dynamics.Authenticate({}, function (err, result) {
-                assert.ok(!err);
-                assert.ok(result);
+            dynamics.Authenticate({}, function (err, authData) {
+                assert.ok(!err, err);
+                assert.ok(authData);
+                assert.ok(authData.auth);
+                options.auth = authData.auth;
 
                 dynamics.Create(options, function (err2, result2) {
                     assert.ok(!err2, err2);
@@ -224,6 +231,7 @@ describe("Dynamics integration tests.", function () {
                     options = {};
                     options.EntityName = 'lead';
                     options.id = result2.Envelope.Body.CreateResponse.CreateResult;
+                    options.auth = authData.auth;
 
                     dynamics.Delete(options, function (err3, result3) {
                         assert.ok(!err3, err3);
@@ -235,27 +243,33 @@ describe("Dynamics integration tests.", function () {
         },
 
         shouldRetrieveMultipleResults = function (dynamics, done) {
-            dynamics.Authenticate({}, function (err, result) {
+            dynamics.Authenticate({}, function (err, authData) {
                 assert.ok(!err);
-                assert.ok(result);
+                assert.ok(authData);
+                assert.ok(authData.auth);
 
                 var options = {"EntityName": "account",
                     "ColumnSet": ["accountid", "name"],
                     "Criteria": { "Conditions": { "FilterOperators": ["And"] }
                         }
                     };
+                options.auth = authData.auth;
 
                 dynamics.RetrieveMultiple(options, function (err2, result2) {
                     assert.ok(!err2, err2);
                     assert.ok(result2);
-
+                    
                     var entities = result2.Envelope
                         .Body.RetrieveMultipleResponse
                         .RetrieveMultipleResult.Entities.Entity;
 
-                    assert.ok(entities.length > 0);
-                    assert.equal(entities[0].Attributes
-                        .KeyValuePairOfstringanyType.length, 2); //Entity with 2 attributes, accountid and name
+                    if (entities.length) { //It's an array
+                        assert.ok(entities[0].LogicalName === 'account');
+                        assert.equal(entities[0].Attributes
+                            .KeyValuePairOfstringanyType.length, 2); //Entity with 2 attributes, accountid and name
+                    } else {
+                        assert.ok(entities.LogicalName === 'account');
+                    }
 
                     done();
                 });

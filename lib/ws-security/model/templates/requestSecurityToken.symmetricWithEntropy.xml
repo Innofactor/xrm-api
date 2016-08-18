@@ -1,0 +1,16 @@
+<t:RequestSecurityToken xmlns:t="http://schemas.xmlsoap.org/ws/2005/02/trust">
+	<t:RequestType>http://schemas.xmlsoap.org/ws/2005/02/trust/Issue</t:RequestType>
+	<wsp:AppliesTo xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy">
+		<EndpointReference xmlns="http://www.w3.org/2005/08/addressing">
+			<Address>{{appliesTo}}</Address>
+		</EndpointReference>
+	</wsp:AppliesTo>
+	<t:Entropy>
+		<t:BinarySecret Type="http://schemas.xmlsoap.org/ws/2005/02/trust/Nonce" u:Id="uuid-7b64733c-cb35-48c7-888c-3945f82bc9e3-1">
+			{{clientEntropy}}
+		</t:BinarySecret>
+	</t:Entropy>
+	<t:KeySize>{{keySize}}</t:KeySize>
+	<t:KeyType>http://schemas.xmlsoap.org/ws/2005/02/trust/SymmetricKey</t:KeyType>
+	<t:ComputedKeyAlgorithm>http://schemas.xmlsoap.org/ws/2005/02/trust/CK/PSHA1</t:ComputedKeyAlgorithm>
+</t:RequestSecurityToken>

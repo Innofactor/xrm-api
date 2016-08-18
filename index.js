@@ -1,6 +1,7 @@
 /*
 * Module's dependencies
 */
+require('simple-errors');
 var Util    = require('./lib/util.js');
 
 var Dynamics = function (settings) {
