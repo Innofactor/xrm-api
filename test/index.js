@@ -26,6 +26,17 @@ var settingsForMicrosoftOnlineAuth = {
         domain: "",
         domainUrlSuffix: "",
         authType: "federation"
+    },
+
+    settingsForNTLMAuth = {
+        username: "",
+        password: "",
+        organizationName: "",
+        domain: "",
+        domainUrlSuffix: "",
+        port: 5555,
+        useHttp: true,
+        authType: "ntlm"
     };
 
 describe("Dynamics integration tests.", function () {
@@ -138,7 +149,7 @@ describe("Dynamics integration tests.", function () {
         });
     });
 
-    describe("Office 365 Authentication", function () {
+    describe("Microsoft Online (Office 365) Authentication", function () {
         var settings,
             dynamics;
 
@@ -155,11 +166,10 @@ describe("Dynamics integration tests.", function () {
             });
         });
 
-        it("Should authenticate OK", function (done) {
+        it("Should fail with password expired", function (done) {
             dynamics.Authenticate({}, function (err, result) {
-                assert.ok(!err);
-                assert.ok(result);
-                assert.ok(result.auth);
+                assert.ok(err);
+                assert.strictEqual(err.message, "The password for the account has expired.\r\n");
                 done();
             });
         });
@@ -187,6 +197,36 @@ describe("Dynamics integration tests.", function () {
                 assert.ok(!err);
                 assert.ok(result);
                 assert.ok(result.auth);
+                done();
+            });
+        });
+    });
+
+    describe("NTLM Authentication", function () {
+        var settings,
+            dynamics;
+
+        beforeEach(function () {
+            settings = settingsForNTLMAuth;
+            dynamics = new Dynamics(settings);
+        });
+
+        it.skip("Should fail with invalid credentials", function (done) {
+            dynamics.Authenticate({username: "invalid"}, function (err, result) {
+                assert.ifError(err);
+                assert.ok(!result);
+                done();
+            });
+        });
+
+        it("Should authenticate OK", function (done) {
+            dynamics.Authenticate({}, function (err, result) {
+                assert.ifError(err);
+                assert.ok(result);
+                assert.ok(result.auth);
+                assert.ok(result.username);
+                assert.equal('string', typeof result.auth);
+                assert.equal(36, result.auth.length);
                 done();
             });
         });
@@ -339,6 +379,39 @@ describe("Dynamics integration tests.", function () {
 
         it("Should retrieve multiple results", function (done) {
             shouldRetrieveMultipleResults(dynamics, done);
+        });
+    });
+
+    describe("Method execution with NTLM Auth", function () {
+        var settings,
+            dynamics;
+
+        before(function () {
+            settings = settingsForNTLMAuth;
+            dynamics = new Dynamics(settings);
+        });
+
+        it("Should retrieve one result", function (done) {
+            dynamics.Authenticate({}, function (err, authData) {
+                assert.ok(!err, err);
+                assert.ok(authData);
+                assert.ok(authData.auth);
+
+                var id = "d4ea3aab-8263-e411-9446-22000b4712e7",
+                    logicalName = "contact";
+
+                dynamics.Retrieve({auth: authData.auth,
+                    "EntityName": logicalName,
+                    "ColumnSet": ["fullname"],
+                    "id": id}, function (err2, result2) {
+
+                    assert.ok(!err2, err2);
+                    assert.ok(result2);
+                    assert.strictEqual(result2.Envelope.Body.RetrieveResponse.RetrieveResult.Id, id);
+                    assert.strictEqual(result2.Envelope.Body.RetrieveResponse.RetrieveResult.LogicalName, logicalName);
+                    done();
+                });
+            });
         });
     });
 });
