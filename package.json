@@ -1,12 +1,12 @@
 {
     "name": "dynamicscrm-api",
-    "version": "0.0.2",
+    "version": "0.0.3",
     "description": "Pure SOAP module that allows to invoke Microsoft Dynamics CRM Online services",
     "author": "Kidozen <development@kidozen.com>",
     "contributors": [
         {
-            "name" : "Development",
-            "email" : "development@kidozen.com"
+            "name": "Gustavo Machado",
+            "email": "gus@kidozen.com"
         },
         {
             "name" : "Christian Carnero",
@@ -17,11 +17,6 @@
     "scripts": 
         {
             "test": "mocha -R spec test"
-        },
-    "repository": 
-        {
-            "type": "git",
-            "url": "https://github.com/kidozen/node-dynamicscrm-api.git"
         },
     "keywords": ["dynamics", "crm", "Microsoft"],
     "license": "MIT",
