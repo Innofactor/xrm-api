@@ -258,7 +258,7 @@ describe("Dynamics integration tests.", function () {
                 dynamics.RetrieveMultiple(options, function (err2, result2) {
                     assert.ok(!err2, err2);
                     assert.ok(result2);
-                    
+
                     var entities = result2.Envelope
                         .Body.RetrieveMultipleResponse
                         .RetrieveMultipleResult.Entities.Entity;

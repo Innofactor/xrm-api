@@ -1,52 +1,52 @@
 {
-    "name": "dynamicscrm-api",
-    "version": "0.0.9",
-    "description": "Pure SOAP module that allows to invoke Microsoft Dynamics CRM Online services",
-    "author": "Kidozen <development@kidozen.com>",
-    "contributors": [
-        {
-            "name": "Gustavo Machado",
-            "email": "gus@kidozen.com"
-        },
-        {
-            "name" : "Christian Carnero",
-            "email" : "chris@kidozen.com"
-        },
-        {
-            "name" : "Hernán Tierno",
-            "email" : "hernan.tierno@kidozen.com"
-        }
-    ],
-    "main": "index.js",
-    "scripts": 
-        {
-            "test": "mocha -R spec test"
-        },
-    "keywords": ["dynamics", "crm", "Microsoft"],
-    "license": "MIT",
-    "dependencies": 
-        {
-            "traverse": "0.6.5",            
-            "xml2json": "0.3.2",
-            "xpath": "0.0.6",
-            "xmldom": "0.1.19",
-            "node-uuid": "1.4.0",
-            "cookie": "0.1.0",
-            "mem-cache": "0.0.4",
-            "path" : "0.4.9",
-            "url" : "0.7.9",
-            "simple-errors":"0.0.5",
-            "request": "2.37.0"
-        },
-    "devDependencies": 
-        {
-            "mocha": "1.11.0",
-            "assert": "0.4.9",
-            "nock": "0.18.2",
-            "mockuire": "0.0.4"
-        },
-    "directories": 
-        {
-            "test": "test"
-        }
+  "name": "dynamicscrm-api",
+  "version": "0.0.10",
+  "description": "Pure SOAP module that allows to invoke Microsoft Dynamics CRM Online services",
+  "author": "Kidozen <development@kidozen.com>",
+  "contributors": [
+    {
+      "name": "Gustavo Machado",
+      "email": "gus@kidozen.com"
+    },
+    {
+      "name": "Christian Carnero",
+      "email": "chris@kidozen.com"
+    },
+    {
+      "name": "Hernán Tierno",
+      "email": "hernan.tierno@kidozen.com"
+    }
+  ],
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha -R spec test"
+  },
+  "keywords": [
+    "dynamics",
+    "crm",
+    "Microsoft"
+  ],
+  "license": "MIT",
+  "dependencies": {
+    "cookie": "0.1.0",
+    "mem-cache": "0.0.4",
+    "node-uuid": "1.4.0",
+    "path": "0.4.9",
+    "request": "2.37.0",
+    "simple-errors": "0.0.5",
+    "traverse": "0.6.5",
+    "url": "0.7.9",
+    "xml2js": "0.4.4",
+    "xmldom": "0.1.19",
+    "xpath": "0.0.6"
+  },
+  "devDependencies": {
+    "mocha": "1.11.0",
+    "assert": "0.4.9",
+    "nock": "0.18.2",
+    "mockuire": "0.0.4"
+  },
+  "directories": {
+    "test": "test"
+  }
 }
