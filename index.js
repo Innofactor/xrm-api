@@ -10,6 +10,11 @@ var Dynamics = function (settings) {
     // creates an instance of class that handles all requests
     var util = new Util(settings);
 
+    this.authenticate = function (options, cb) {
+        util.Authenticate(options, cb);
+    };
+
+    // Compatibiliy backwards
     this.Authenticate = function (options, cb) {
         util.Authenticate(options, cb);
     };
