@@ -4,19 +4,19 @@ var assert      = require('assert');
 var Dynamics    = require('../index.js');
 
 var settingsForMicrosoftOnlineAuth = {
-        username : "",
-        password : "",
-        organizationid : "",
-        domain : "",
-        domainUrlSuffix: "",
+        username : "revathy.s2@919940209976.onmicrosoft.com",
+        password : "password-1",
+        organizationid : "919940209976",
+        domain : "919940209976",
+        domainUrlSuffix: ".api.crm5.dynamics.com",
         authType: "microsoft_online" //Office365
     },
 
     settingsForLiveIdAuth = {
-        username : "",
-        password : "",
-        organizationid : "",
-        domain: "",
+        username : "moesionadmin@tellagostudios.com",
+        password : "basel11*1",
+        organizationid : "e34147aa5c374c1a93cd2eccb6d9e1eb",
+        domain: "tellagostudios1",
         authType: "live_id"
     };
 
@@ -204,6 +204,34 @@ describe("Dynamics integration tests.", function () {
                     });
                 });
             });
+        },
+
+        shouldRetrieveMultipleResults = function (dynamics, done) {
+            dynamics.Authenticate({}, function (err, result) {
+                assert.ok(!err);
+                assert.ok(result);
+
+                var options = {"EntityName": "account",
+                    "ColumnSet": ["accountid", "name"],
+                    "Criteria": { "Conditions": { "FilterOperators": ["And"] }
+                        }
+                    };
+
+                dynamics.RetrieveMultiple(options, function (err2, result2) {
+                    assert.ok(!err2, err2);
+                    assert.ok(result2);
+
+                    var entities = result2.Envelope
+                        .Body.RetrieveMultipleResponse
+                        .RetrieveMultipleResult.Entities.Entity;
+
+                    assert.ok(entities.length > 0);
+                    assert.equal(entities[0].Attributes
+                        .KeyValuePairOfstringanyType.length, 2); //Entity with 2 attributes, accountid and name
+
+                    done();
+                });
+            });
         };
 
     describe("Method execution with LiveId Auth", function () {
@@ -224,34 +252,7 @@ describe("Dynamics integration tests.", function () {
         });
 
         it("Should retrieve multiple results", function (done) {
-            dynamics.Authenticate({}, function (err, result) {
-                assert.ok(!err);
-                assert.ok(result);
-
-                var options = {EntityName: "account", 
-                    ColumnSet: ["accountid", "name"],
-                    Criteria: {
-                        Conditions: {
-                            FilterOperators: ["And"]
-                        }
-                    }
-                };
-
-                dynamics.RetrieveMultiple(options, function (err2, result2) {
-                    assert.ok(!err2, err2);
-                    assert.ok(result2);
-
-                    var entities = result2.Envelope
-                        .Body.RetrieveMultipleResponse
-                        .RetrieveMultipleResult.Entities.Entity;
-
-                    assert.ok(entities.length > 0);
-                    assert.equal(entities[0].Attributes
-                        .KeyValuePairOfstringanyType.length, 2); //Entity with 2 attributes, accountid and name
-
-                    done();
-                });
-            });
+            shouldRetrieveMultipleResults(dynamics, done);
         });
     });
 
@@ -270,6 +271,10 @@ describe("Dynamics integration tests.", function () {
 
         it("Should Create a Lead and then delete it", function (done) {
             shouldCreateALeadAndThenDeleteIt(dynamics, done);
+        });
+
+        it("Should retrieve multiple results", function (done) {
+            shouldRetrieveMultipleResults(dynamics, done);
         });
     });
 });
