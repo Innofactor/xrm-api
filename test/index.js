@@ -4,20 +4,28 @@ var assert      = require('assert');
 var Dynamics    = require('../index.js');
 
 var settingsForMicrosoftOnlineAuth = {
-        username : "revathy.s2@919940209976.onmicrosoft.com",
-        password : "password-1",
-        organizationid : "919940209976",
-        domain : "919940209976",
-        domainUrlSuffix: ".api.crm5.dynamics.com",
+        username : "",
+        password : "",
+        organizationid : "",
+        domain : "",
+        domainUrlSuffix: "",
         authType: "microsoft_online" //Office365
     },
 
     settingsForLiveIdAuth = {
-        username : "moesionadmin@tellagostudios.com",
-        password : "basel11*1",
-        organizationid : "e34147aa5c374c1a93cd2eccb6d9e1eb",
-        domain: "tellagostudios1",
+        username : "",
+        password : "",
+        organizationid : "",
+        domain: "",
         authType: "live_id"
+    },
+
+    settingForFederationAuth = {
+        username : "",
+        password : "",
+        domain: "",
+        domainUrlSuffix: "",
+        authType: "federation"
     };
 
 describe("Dynamics integration tests.", function () {
@@ -124,9 +132,6 @@ describe("Dynamics integration tests.", function () {
             dynamics.Authenticate({}, function (err, result) {
                 assert.ok(!err, err);
                 assert.ok(result);
-                assert.ok(result.KeyIdentifier);
-                assert.ok(result.CiperValue0);
-                assert.ok(result.CiperValue1);
                 done();
             });
         });
@@ -153,9 +158,32 @@ describe("Dynamics integration tests.", function () {
             dynamics.Authenticate({}, function (err, result) {
                 assert.ok(!err);
                 assert.ok(result);
-                assert.ok(result.KeyIdentifier);
-                assert.ok(result.CiperValue0);
-                assert.ok(result.CiperValue1);
+                done();
+            });
+        });
+    });
+
+    describe("Federation Authentication", function () {
+        var settings,
+            dynamics;
+
+        beforeEach(function () {
+            settings = settingForFederationAuth;
+            dynamics = new Dynamics(settings);
+        });
+
+        it("Should fail with invalid credentials", function (done) {
+            dynamics.Authenticate({username: "invalid"}, function (err, result) {
+                assert.ok(err);
+                assert.ok(!result);
+                done();
+            });
+        });
+
+        it("Should authenticate OK", function (done) {
+            dynamics.Authenticate({}, function (err, result) {
+                assert.ok(!err);
+                assert.ok(result);
                 done();
             });
         });
@@ -262,6 +290,28 @@ describe("Dynamics integration tests.", function () {
 
         before(function () {
             settings = settingsForMicrosoftOnlineAuth;
+            dynamics = new Dynamics(settings);
+        });
+
+        it("Should fail deletion with invalid id", function (done) {
+            shouldFailDeletionWithInvalidId(dynamics, done);
+        });
+
+        it("Should Create a Lead and then delete it", function (done) {
+            shouldCreateALeadAndThenDeleteIt(dynamics, done);
+        });
+
+        it("Should retrieve multiple results", function (done) {
+            shouldRetrieveMultipleResults(dynamics, done);
+        });
+    });
+
+    describe("Method execution with Federation Auth", function () {
+        var settings,
+            dynamics;
+
+        before(function () {
+            settings = settingForFederationAuth;
             dynamics = new Dynamics(settings);
         });
 
