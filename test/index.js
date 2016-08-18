@@ -222,6 +222,37 @@ describe("Dynamics integration tests.", function () {
         it("Should Create a Lead and then delete it", function (done) {
             shouldCreateALeadAndThenDeleteIt(dynamics, done);
         });
+
+        it("Should retrieve multiple results", function (done) {
+            dynamics.Authenticate({}, function (err, result) {
+                assert.ok(!err);
+                assert.ok(result);
+
+                var options = {EntityName: "account", 
+                    ColumnSet: ["accountid", "name"],
+                    Criteria: {
+                        Conditions: {
+                            FilterOperators: ["And"]
+                        }
+                    }
+                };
+
+                dynamics.RetrieveMultiple(options, function (err2, result2) {
+                    assert.ok(!err2, err2);
+                    assert.ok(result2);
+
+                    var entities = result2.Envelope
+                        .Body.RetrieveMultipleResponse
+                        .RetrieveMultipleResult.Entities.Entity;
+
+                    assert.ok(entities.length > 0);
+                    assert.equal(entities[0].Attributes
+                        .KeyValuePairOfstringanyType.length, 2); //Entity with 2 attributes, accountid and name
+
+                    done();
+                });
+            });
+        });
     });
 
     describe("Method execution with MicrosoftOnline Auth", function () {
