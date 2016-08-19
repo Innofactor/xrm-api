@@ -12,16 +12,15 @@ var Dynamics = function (settings) {
     var util = new Util(settings);
     var message = new Message(util);
 
-    this.authenticate = function (options, cb) {
-        util.Authenticate(options, cb);
-    };
+    // this.authenticate = function (options, cb) {
+    //     util.Authenticate(options, cb);
+    // };
 
-    // Compatibiliy backwards
-    this.Authenticate = function (options, cb) {
-        util.Authenticate(options, cb);
-    };
-
-    // 
+    // // Compatibiliy backwards
+    // this.Authenticate = function (options, cb) {
+    //     util.Authenticate(options, cb);
+    // };
+    
     this.Create = function (options) {
         return message.Create(options);
     };
