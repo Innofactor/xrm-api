@@ -34,8 +34,8 @@ var Dynamics = function (settings) {
         return message.Retrieve(options);
     };
 
-    this.RetrieveMultiple = function (options, cb) {
-        util.RetrieveMultiple(options, cb);
+    this.RetrieveMultiple = function (options) {
+        return message.RetrieveMultiple(options);
     };
 
     this.Associate = function (options, cb) {
