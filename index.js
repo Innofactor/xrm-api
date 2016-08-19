@@ -3,6 +3,7 @@
 */
 require('simple-errors');
 var Util    = require('./lib/util.js');
+var Retrieve = require('./lib/calls/retrieve.js');
 
 var Dynamics = function (settings) {
     "use strict";
@@ -28,8 +29,8 @@ var Dynamics = function (settings) {
         util.Update(options, cb);
     };
 
-    this.Retrieve = function (options, cb) {
-        util.Retrieve(options, cb);
+    this.Retrieve = function (options) {
+        return Retrieve(util, options);
     };
 
     this.RetrieveMultiple = function (options, cb) {
