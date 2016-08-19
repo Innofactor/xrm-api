@@ -42,8 +42,8 @@ var Dynamics = function (settings) {
         return message.Associate(options);
     };
 
-    this.Disassociate = function (options, cb) {
-        util.Disassociate(options, cb);
+    this.Disassociate = function (options) {
+        return message.Disassociate(options);
     };
 
     this.Execute = function (options, cb) {
