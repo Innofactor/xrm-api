@@ -3,13 +3,14 @@
 */
 require('simple-errors');
 var Util    = require('./lib/util.js');
-var Retrieve = require('./lib/calls/retrieve.js');
+var Message = require('./lib/message.js');
 
 var Dynamics = function (settings) {
     "use strict";
 
     // creates an instance of class that handles all requests
     var util = new Util(settings);
+    var message = new Message(util);
 
     this.authenticate = function (options, cb) {
         util.Authenticate(options, cb);
@@ -30,7 +31,7 @@ var Dynamics = function (settings) {
     };
 
     this.Retrieve = function (options) {
-        return Retrieve(util, options);
+        return message.Retrieve(options);
     };
 
     this.RetrieveMultiple = function (options, cb) {
