@@ -50,8 +50,8 @@ var Dynamics = function (settings) {
         util.Execute(options, cb);
     };
 
-    this.Delete = function (options, cb) {
-        util.Delete(options, cb);
+    this.Delete = function (options) {
+        return message.Delete(options);
     };
 };
 
