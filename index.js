@@ -38,8 +38,8 @@ var Dynamics = function (settings) {
         return message.RetrieveMultiple(options);
     };
 
-    this.Associate = function (options, cb) {
-        util.Associate(options, cb);
+    this.Associate = function (options) {
+        return message.Associate(options);
     };
 
     this.Disassociate = function (options, cb) {
