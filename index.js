@@ -26,8 +26,8 @@ var Dynamics = function (settings) {
         return message.Create(options);
     };
 
-    this.Update = function (options, cb) {
-        util.Update(options, cb);
+    this.Update = function (options) {
+        return message.Update(options);
     };
 
     this.Retrieve = function (options) {
