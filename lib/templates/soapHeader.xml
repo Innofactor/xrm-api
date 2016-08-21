@@ -1,9 +1,0 @@
-<s:Header>
-    <a:Action s:mustUnderstand="1">http://schemas.microsoft.com/xrm/2011/Contracts/Services/IOrganizationService/{action}</a:Action>
-    <a:MessageID>urn:uuid:{messageid}</a:MessageID>
-    <a:ReplyTo>
-      <a:Address>http://www.w3.org/2005/08/addressing/anonymous</a:Address>
-    </a:ReplyTo>
-    <a:To s:mustUnderstand="1">{crmurl}</a:To>
-    {security}
-  </s:Header>
