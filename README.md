@@ -58,7 +58,7 @@ dynamics.Authenticate({ username:"foo", password: "bar" }, function(err, result)
 });
 ```
 
-#### Create(options, callback)
+#### Create(options)
 
 This method should be used to create new entities such as leads, contacts, etc.
 
@@ -67,16 +67,19 @@ This method should be used to create new entities such as leads, contacts, etc.
 	* `LogicalName`: String. The name of the entity to create (Lead, Contact, etc. )
 	* `Attributes`: Array of Key-Value strings .
 	* `FormatedValues`: Array of Key-Value strings.
-* `callback`: A required function for callback.
 
 ```
 	var options = {};
 	options.Attributes = [ { key:'lastname' , value :'Doe'} , { key:'firstname' , value :'John'}];
 	options.LogicalName = 'lead';
 
-	dynamics.Create(options, function(err, result) 
-	{
-		...	
+	dynamics.Create(options)
+        .then(function (data)) {
+            console.log("Success!");
+        })
+        .catch(function (err) {
+            console.log("Failure");
+        });
 ``` 
 
 #### Update(options, callback)
