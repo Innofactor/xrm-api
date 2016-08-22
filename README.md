@@ -82,7 +82,7 @@ This method should be used to create new entities such as leads, contacts, etc.
         });
 ``` 
 
-#### Update(options, callback)
+#### Update(options)
 
 This method should be used to update an entity.
 
@@ -92,7 +92,6 @@ This method should be used to update an entity.
 	* `LogicalName`: String. The name of the entity to create (Lead, Contact, etc. )
 	* `Attributes`: Array of Key-Value strings .
 	* `FormatedValues`: Array of Key-Value strings.
-* `callback`: A required function for callback.
 
 ```
 	var options = {};
@@ -100,9 +99,13 @@ This method should be used to update an entity.
 	options.Attributes = [ { key:'companyname' , value :'Kidozen'}];
 	options.LogicalName = 'lead';
 
-	dynamics.Update(options, function(err, result) 
-	{
-		...	
+	dynamics.Update(options) 
+        .then(function (data)) {
+            console.log("Success!");
+        })
+        .catch(function (err) {
+            console.log("Failure");
+        });
 ``` 
 
 #### Delete(options, callback)
