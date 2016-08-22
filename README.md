@@ -237,21 +237,24 @@ This method should be used to create a relation between entities.
         });
 ``` 
 
-#### Execute(options, callback)
+#### Execute(options)
 
 **Parameters:**
 * `options`: A required object instance containing authentication's parameters:
 	* `RequestName`: Name of the crm method to execute.
 	* `Parameters`: : Array of Key-Value strings with the method's parameters names and values.	
-* `callback`: A required function for callback.
 
 ```
 	var options = {};
 	options.RequestName = 'account';
 	
-	dynamics.Execute(options, function(err, result) 
-	{
-		...	
+	dynamics.Execute(options)
+        .then(function (data)) {
+            console.log("Success!");
+        })
+        .catch(function (err) {
+            console.log("Failure...");
+        });
 ``` 
 
 
