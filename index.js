@@ -1,7 +1,6 @@
 /*
 * Module's dependencies
 */
-require('simple-errors');
 var Util    = require('./lib/util.js');
 var Message = require('./lib/message.js');
 
