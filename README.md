@@ -181,7 +181,7 @@ This method should be used to retrieve multiple entities.
         });
 ``` 
 
-#### Associate(options, callback)
+#### Associate(options)
 
 This method should be used to create a relation between entities.
 
@@ -193,7 +193,6 @@ This method should be used to create a relation between entities.
 	* `RelatedEntities`: Array of related entities objects with the following values:
 	* * `Id`: Related entity unique identifier.
 	* * `LogicalName`: Name of the related entity.		
-* `callback`: A required function for callback.
 
 ```
 	var options = {};
@@ -202,9 +201,13 @@ This method should be used to create a relation between entities.
 	options.RelationShip = { SchemaName: 'contact_customer_accounts'};
 	options.RelatedEntities = [{Id : '00000000-dddd-0000-0000-111111111111',LogicalName : 'contact'}];
 	
-	dynamics.Associate(options, function(err, result) 
-	{
-		...	
+	dynamics.Associate(options) 
+        .then(function (data)) {
+            console.log("Success!");
+        })
+        .catch(function (err) {
+            console.log("Failure...");
+        });
 ``` 
 
 #### Disassociate(options, callback)
