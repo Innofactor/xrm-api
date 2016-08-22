@@ -131,7 +131,7 @@ This method should be used to delete an entity.
         });
 ``` 
 
-#### Retrieve(options, callback)
+#### Retrieve(options)
 
 This method should be used to retrieve a single entity.
 
@@ -140,7 +140,6 @@ This method should be used to retrieve a single entity.
 	* `id`: Entity unique identifier.
 	* `EntityName`: String. The name of the entity to create (Lead, Contact, etc. )
 	* `ColumnSet`: Array of strings with the names of the columns to retrieve.	
-* `callback`: A required function for callback.
 
 ```
 	var options = {};
@@ -148,9 +147,13 @@ This method should be used to retrieve a single entity.
 	options.EntityName = 'lead';
 	options.ColumnSet = ['firstname'];
 	
-	dynamics.Retrieve(options, function(err, result) 
-	{
-		...	
+	dynamics.Retrieve(options)
+        .then(function (data)) {
+            console.log("Success!");
+        })
+        .catch(function (err) {
+            console.log("Failure");
+        });
 ``` 
 
 #### RetrieveMultiple(options, callback)
