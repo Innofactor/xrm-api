@@ -14,14 +14,7 @@ Use npm to install the module:
 
 ## API
 
-Due to the asynchrounous nature of Nodejs, this module uses callbacks in requests. All callbacks have 2 arguments: `err` and `data`.
-
-```
-function callback (err, data) {
-	// err contains an Error class instance, if any
-	// data contains the resulting data
-} 
-``` 
+Due to the asynchrounous nature of Nodejs, this module uses promises in requests. All functions that promises call have 1 argument: either `err` or `data` depending on event type fired.
 
 ### Constructor
 
