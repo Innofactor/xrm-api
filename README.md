@@ -78,7 +78,7 @@ This method should be used to create new entities such as leads, contacts, etc.
             console.log("Success!");
         })
         .catch(function (err) {
-            console.log("Failure");
+            console.log("Failure...");
         });
 ``` 
 
@@ -104,7 +104,7 @@ This method should be used to update an entity.
             console.log("Success!");
         })
         .catch(function (err) {
-            console.log("Failure");
+            console.log("Failure...");
         });
 ``` 
 
@@ -127,7 +127,7 @@ This method should be used to delete an entity.
             console.log("Success!");
         })
         .catch(function (err) {
-            console.log("Failure");
+            console.log("Failure...");
         });
 ``` 
 
@@ -152,11 +152,11 @@ This method should be used to retrieve a single entity.
             console.log("Success!");
         })
         .catch(function (err) {
-            console.log("Failure");
+            console.log("Failure...");
         });
 ``` 
 
-#### RetrieveMultiple(options, callback)
+#### RetrieveMultiple(options)
 
 This method should be used to retrieve multiple entities.
 
@@ -165,7 +165,6 @@ This method should be used to retrieve multiple entities.
 	* `id`: Entity unique identifier.
 	* `EntityName`: String. The name of the entity to create (Lead, Contact, etc. )
 	* `ColumnSet`: Array of strings with the names of the columns to retrieve.	
-* `callback`: A required function for callback.
 
 ```
 	var options = {};
@@ -173,9 +172,13 @@ This method should be used to retrieve multiple entities.
 	options.EntityName = 'lead';
 	options.ColumnSet = ['firstname'];
 	
-	dynamics.RetrieveMultiple(options, function(err, result) 
-	{
-		...	
+	dynamics.RetrieveMultiple(options) 
+        .then(function (data)) {
+            console.log("Success!");
+        })
+        .catch(function (err) {
+            console.log("Failure...");
+        });
 ``` 
 
 #### Associate(options, callback)
