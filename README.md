@@ -108,7 +108,7 @@ This method should be used to update an entity.
         });
 ``` 
 
-#### Delete(options, callback)
+#### Delete(options)
 
 This method should be used to delete an entity.
 
@@ -116,16 +116,19 @@ This method should be used to delete an entity.
 * `options`: A required object instance containing authentication's parameters:
 	* `id`: Entity unique identifier.
 	* `EntityName`: String. The name of the entity to create (Lead, Contact, etc. )
-* `callback`: A required function for callback.
 
 ```
 	var options = {};
 	options.id = '00000000-dddd-eeee-iiii-111111111111';	
 	options.EntityName = 'lead';
 
-	dynamics.Delete(options, function(err, result) 
-	{
-		...	
+	dynamics.Delete(options)
+        .then(function (data)) {
+            console.log("Success!");
+        })
+        .catch(function (err) {
+            console.log("Failure");
+        });
 ``` 
 
 #### Retrieve(options, callback)
