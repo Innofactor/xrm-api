@@ -1,7 +1,7 @@
 {
   "name": "xrm-api",
   "version": "2.1.2",
-  "description": "Pure SOAP module that allows to invoke Microsoft Dynamics CRM both Online and OnPrem services",
+  "description": "Module that allows to invoke Microsoft Dynamics CRM services",
   "author": "Kidozen <development@kidozen.com>",
   "contributors": [
     {
