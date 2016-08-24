@@ -2,14 +2,32 @@
 This node module provides a set of methods to interact with MS Dynamics CRM Online services.
 This is a pure SOAP proxy that supports LiveId authentication.
 
-The module was created as part of [KidoZen](http://www.kidozen.com) project, as a connector for its Enterprise API feature.
+The module was named `dynamicscrm-api` and was created as part of [KidoZen](http://www.kidozen.com) project, as a connector for its Enterprise API feature in year 2013.
+The module was updated and renamed to `xrm-api` by [Innofactor AB](http://www.innofactor.se) in 2016.
+
+Code was exported from https://npmjs.com/ database and caredully saved in `git` repository preserving history as much as possible. Fork was done after trying reach original maintainers at *KidoZen* with propose update original package `dynamicscrm-api` and receiving no answer. All copyrights are preserved in `LICENSE` file as well in the `package.json`.
+
+Main differences from original module:
+
+* Updated dependencies;
+* Removed not crucial dependencies (for sake of performance);
+* All calls to service return promises instead of requiring callback;
+* Added explicit support for OnPremise installations of MS Dynamics CRM;
+* Code was restructured to become more readable;
+
+Future plans:
+
+* Browsers support (in progress);
+* Shortcuts for additional request types currently done via `Execute` method;
+* Performance improvements;
+* Documentation update;
 
 ## Installation
 
 Use npm to install the module:
 
 ```
-> npm install dynamicscrm-api
+> npm install xrm-api
 ```
 
 ## API
@@ -28,7 +46,7 @@ The module exports a class and its constructor requires a configuration object w
 * `discoveryServiceAddress`: Optional. You should not change this value unless you are sure. default value is "https://dev.crm.dynamics.com/XRMServices/2011/Discovery.svc"
 
 ```
-var dynamics = require("dynamicscrm-api");
+var dynamics = require("xrm-api");
 var dynamics = new dynamics({ 
 	domain: "mycompany", 
 	organizationid: "e00000ee0e000e0e00ee0eeee0e0e0ee",
@@ -257,10 +275,10 @@ This method should be used to create a relation between entities.
         });
 ``` 
 
-
 #License 
 
 Copyright (c) 2013 KidoZen, inc.
+Copyright (c) 2016 Innofactor AB, inc.
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
