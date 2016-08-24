@@ -6,7 +6,7 @@ The module was named `dynamicscrm-api` and was created as part of [KidoZen](http
 
 The module was updated and renamed to `xrm-api` by [Innofactor AB](http://www.innofactor.se) in 2016.
 
-The code was exported from https://npmjs.com/ database and carefully saved in `git` repository preserving history as much as possible. Fork was done after trying reach original maintainers at *KidoZen* with propose update original package `dynamicscrm-api` and receiving no answer. All copyrights are preserved in `LICENSE` file as well in the `package.json`.
+The code was exported from https://npmjs.com/ database and carefully saved in `git` repository preserving history as much as possible. Fork was done after trying reach original maintainers at **KidoZen** with propose update original package `dynamicscrm-api` and receiving no answer. All copyrights are preserved in `LICENSE` file as well in the `package.json`.
 
 Main differences from original module:
 

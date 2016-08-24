@@ -15,8 +15,16 @@
     {
       "name": "Hernán Tierno",
       "email": "hernan.tierno@kidozen.com"
+    },
+    {
+      "name": "Alexey Shytikov",
+      "email": "alexey.shytikov@innofactor.com"
     }
   ],
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/Innofactor/xrm-api.git"
+  },
   "main": "index.js",
   "scripts": {
     "test": "mocha -R spec test"
@@ -24,7 +32,10 @@
   "keywords": [
     "dynamics",
     "crm",
-    "Microsoft"
+    "microsoft",
+    "xrm",
+    "api",
+    "sdk"
   ],
   "license": "MIT",
   "dependencies": {
