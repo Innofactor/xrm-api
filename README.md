@@ -5,7 +5,7 @@ This is a pure SOAP proxy that supports LiveId authentication.
 The module was named `dynamicscrm-api` and was created as part of [KidoZen](http://www.kidozen.com) project, as a connector for its Enterprise API feature in year 2013.
 The module was updated and renamed to `xrm-api` by [Innofactor AB](http://www.innofactor.se) in 2016.
 
-Code was exported from https://npmjs.com/ database and caredully saved in `git` repository preserving history as much as possible. Fork was done after trying reach original maintainers at *KidoZen* with propose update original package `dynamicscrm-api` and receiving no answer. All copyrights are preserved in `LICENSE` file as well in the `package.json`.
+Code was exported from https://npmjs.com/ database and carefully saved in `git` repository preserving history as much as possible. Fork was done after trying reach original maintainers at *KidoZen* with propose update original package `dynamicscrm-api` and receiving no answer. All copyrights are preserved in `LICENSE` file as well in the `package.json`.
 
 Main differences from original module:
 
