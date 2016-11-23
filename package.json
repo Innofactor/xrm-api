@@ -43,10 +43,10 @@
     "cookie": "^0.3.1",
     "httpntlm": "^1.6.1",
     "mem-cache": "^0.0.5",
-    "node-uuid": "^1.4.7",
     "path": "^0.12.7",
     "request": "^2.74.0",
     "traverse": "^0.6.6",
+    "uuid": "^3.0.0",
     "xml2js": "^0.4.17",
     "xmldom": "^0.1.22",
     "xpath": "^0.0.23"
