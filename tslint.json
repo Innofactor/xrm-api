@@ -1,0 +1,14 @@
+{
+    "defaultSeverity": "error",    
+    "jsRules": { 
+      "ter-arrow-parens": "0"
+     },
+    "rules": {
+      "no-increment-decrement": false,
+      "no-else-after-return": false,
+      "variable-name": false,
+      "import-name": false
+    },
+    "rulesDirectory": []
+  }
+  

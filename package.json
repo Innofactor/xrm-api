@@ -29,16 +29,19 @@
     "type": "git",
     "url": "git+ssh://git@github.com/wmkDev/xrm-api.git"
   },
-  "main": "index.js",
-  "scripts": {    
-    "test": "mocha -R spec test"
+  "main": "Main.js",
+  "scripts": {
+    "prebuild": "rm -rf lib && npm run lint",
+    "build": "$(npm bin)/tsc",
+    "test": "mocha -R spec test",
+    "lint": "$(npm bin)/tslint --project ./tsconfig.json --fix"
   },
   "keywords": [
     "dynamics",
     "crm",
     "microsoft",
     "xrm",
-    "soap",    
+    "soap",
     "api",
     "sdk"
   ],
@@ -57,10 +60,13 @@
     "xpath": "^0.0.23"
   },
   "devDependencies": {
+    "@types/node": "^10.12.18",
     "assert": "^1.4.1",
     "mocha": "^3.0.2",
     "mockuire": "^0.1.0",
-    "nock": "^8.0.0"
+    "nock": "^8.0.0",
+    "tslint": "5.11.0",    
+    "typescript": "3.2.2"
   },
   "directories": {
     "test": "test"

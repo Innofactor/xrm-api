@@ -1,10 +1,10 @@
-import { DOMParser, XMLSerializer } from 'xmldom';
-var domParser   = new DOMParser();
-var serializer =  new XMLSerializer();
+var xmldom = require('xmldom');
+var domParser   = new xmldom.DOMParser();
+var serializer =  new xmldom.XMLSerializer();
 
+var RequestSecurityTokenResponse = module.exports;
 
-
-export function parse (str) {
+RequestSecurityTokenResponse.parse = function (str) {
 
 	var rstr = {};
 

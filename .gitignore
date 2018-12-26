@@ -6,6 +6,9 @@
 !.vscode/tasks.json
 !.vscode/launch.json
 
+###
+built
+
 
 ### Node ###
 # Logs

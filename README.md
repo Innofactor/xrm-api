@@ -21,7 +21,6 @@ Main differences from original module (xrm-api):
 Future plans:
 
 * Criteria (filters for any type of 'values') support;
-* Convert code to typescript;
 * Update tests;
 * Update documentation;
 
