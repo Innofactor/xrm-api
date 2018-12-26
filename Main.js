@@ -1,8 +1,8 @@
 /*
 * Module's dependencies
 */
-import Util from './src/util.js';
-import Message from './src/message.js';
+var Util    = require('./src/util.js');
+var Message = require('./src/message.js');
 
 class Dynamics {
     constructor(settings) {
