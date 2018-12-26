@@ -1,6 +1,6 @@
 var assert = require('assert');
 var fs = require('fs');
-var WSSecurityIssuedTokenWithSymmetricProofKey = require('../lib/ws-security/model/WSSecurityIssuedTokenWithSymmetricProofKey.js');
+var WSSecurityIssuedTokenWithSymmetricProofKey = require('../src/ws-security/model/WSSecurityIssuedTokenWithSymmetricProofKey.js');
 
 
 describe('wssecurity.issuedtoken', function() {
