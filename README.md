@@ -8,27 +8,29 @@ The module was updated and renamed to `xrm-api` by [Innofactor AB](http://www.in
 
 The code was exported from https://npmjs.com/ database and carefully saved in `git` repository preserving history as much as possible. Fork was done after trying reach original maintainers at **KidoZen** with propose update original package `dynamicscrm-api` and receiving no answer. All copyrights are preserved in `LICENSE` file as well in the `package.json`.
 
-Main differences from original module:
 
-* Updated dependencies;
-* Removed not crucial dependencies (for sake of performance);
-* All calls to service return promises instead of requiring callback;
-* Added explicit support for OnPremise installations of MS Dynamics CRM;
+<hr>
+
+This fork was made for personal use to add missing features (customized) and made public to npm 'dyn-xrm-api' in 2018.
+
+Main differences from original module (xrm-api):
+
+* Updated code to ES2015;
 * Code was restructured to become more readable;
 
 Future plans:
 
-* Browsers support (in progress);
-* Shortcuts for additional request types currently done via `Execute` method;
-* Performance improvements;
-* Documentation update;
+* Criteria (filters for any type of 'values') support;
+* Convert code to typescript;
+* Update tests;
+* Update documentation;
 
 ## Installation
 
 Use npm to install the module:
 
 ```
-> npm install xrm-api
+> npm install dyn-xrm-api
 ```
 
 ## API
@@ -47,35 +49,32 @@ The module exports a class and its constructor requires a configuration object w
 * `discoveryServiceAddress`: Optional. You should not change this value unless you are sure. default value is "https://dev.crm.dynamics.com/XRMServices/2011/Discovery.svc"
 
 ```
-var dynamics = require("xrm-api");
+var dynamics = require("dyn-xrm-api");
+const crmPort = +(process.env.CRM_PORT || 80);
 var dynamics = new dynamics({ 
-	domain: "mycompany", 
-	organizationid: "e00000ee0e000e0e00ee0eeee0e0e0ee",
-	timeout: 5*60*1000 	// Timeout of 5 minutes
+	domain: process.env.CRM_HOST,
+	hostName: process.env.CRM_HOST,
+	port: crmPort,
+	organizationName: process.env.CRM_ORGNAME,	
+	timeout: 2 * 60 * 1000, // timeout 2 minutes
+	returnJson: true, // return response in json
+	authType: 'ntlm', // authentication type ntlm to access resource using xrm soap api
+	username: process.env.CRM_USERNAME,
+	password: process.env.CRM_PASSWORD,	
+	useHttp: true, // to use http or https/
 });
+
+
 ```
 
 ### Methods
-All public methods has the same signature. The signature has two arguments: `options` and `callback`.
+All public methods has the same signature. The signature has one argument: `options`.
 * `options` must be an object instance containig all parameters for the method.
-* `callback` must be a function.
 
-#### Authenticate(options, callback)
 
-This method should be used to authenticate user's credentials. A successed authentication will return an object instance containing the authentication tokens that will be required by other methods.
+#### Information below is outdated!
 
-**Parameters:**
-* `options`: A required object instance containing authentication's parameters:
-	* `username`: String.
-	* `password`: String.
-* `callback`: A required function for callback.
 
-```
-dynamics.Authenticate({ username:"foo", password: "bar" }, function(err, result) {
-	if (err) return console.error (err);
-	console.log (result.auth);
-});
-```
 
 #### Create(options)
 
