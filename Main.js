@@ -1,8 +1,8 @@
 /*
 * Module's dependencies
 */
-import Util from './lib/util.js';
-import Message from './lib/message.js';
+import Util from './src/util.js';
+import Message from './src/message.js';
 
 class Dynamics {
     constructor(settings) {

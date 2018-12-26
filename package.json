@@ -31,8 +31,7 @@
   },
   "main": "Main.js",
   "scripts": {
-    "prebuild": "rm -rf lib && npm run lint",
-    "build": "$(npm bin)/tsc",
+    "prebuild": "rm -rf lib && npm run lint",    
     "test": "mocha -R spec test",
     "lint": "$(npm bin)/tslint --project ./tsconfig.json --fix"
   },
