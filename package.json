@@ -1,6 +1,6 @@
 {
   "name": "dyn-xrm-api",
-  "version": "3.0.6",
+  "version": "3.0.8",
   "description": "Module that allows to invoke Microsoft Dynamics CRM services",
   "author": "Kidozen <development@kidozen.com>",
   "contributors": [
@@ -31,7 +31,7 @@
   },
   "main": "Main.js",
   "scripts": {
-    "prebuild": "rm -rf lib && npm run lint",    
+    "prebuild": "rm -rf lib && npm run lint",
     "test": "mocha -R spec test",
     "lint": "$(npm bin)/tslint --project ./tsconfig.json --fix"
   },
@@ -64,7 +64,7 @@
     "mocha": "^3.0.2",
     "mockuire": "^0.1.0",
     "nock": "^8.0.0",
-    "tslint": "5.11.0",    
+    "tslint": "5.11.0",
     "typescript": "3.2.2"
   },
   "directories": {
