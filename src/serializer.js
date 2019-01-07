@@ -25,18 +25,18 @@ var Serializer = function() {
       });
 
       xml +=
-        '<b:ColumnSet>' +
-        '<b:AllColumns>false</b:AllColumns>' +
+        "<b:ColumnSet>" +
+        "<b:AllColumns>false</b:AllColumns>" +
         '<b:Columns xmlns:c="http://schemas.microsoft.com/2003/10/Serialization/Arrays">' +
         columset.join("") +
-        '</b:Columns>' +
-        '</b:ColumnSet>';
+        "</b:Columns>" +
+        "</b:ColumnSet>";
     } else {
       xml +=
-        '<b:ColumnSet>' +
-        '<b:AllColumns>true</b:AllColumns>' +
+        "<b:ColumnSet>" +
+        "<b:AllColumns>true</b:AllColumns>" +
         '<b:Columns xmlns:c="http://schemas.microsoft.com/2003/10/Serialization/Arrays"></b:Columns>' +
-        '</b:ColumnSet>';
+        "</b:ColumnSet>";
     }
 
     if (options.Criteria) {
@@ -46,7 +46,9 @@ var Serializer = function() {
                        <b:AttributeName>${c.AttributeName}</b:AttributeName>
                        <b:Operator>${c.Operator}</b:Operator>
                        <b:Values xmlns:c="http://schemas.microsoft.com/2003/10/Serialization/Arrays">                        
-                        <c:anyType i:type="d:string" xmlns:d="http://www.w3.org/2001/XMLSchema">${c.Value}</c:anyType>
+                        <c:anyType i:type="d:string" xmlns:d="http://www.w3.org/2001/XMLSchema">${
+                          c.Value
+                        }</c:anyType>
                        </b:Values>
                      </b:ConditionExpression>`;
         });
@@ -73,7 +75,21 @@ var Serializer = function() {
       xml += "<b:EntityName>" + options.EntityName + "</b:EntityName>";
     }
 
-    xml += "<b:Distinct>false</b:Distinct><b:LinkEntities /><b:Orders />";
+    xml += "<b:Distinct>false</b:Distinct><b:LinkEntities />";
+
+    if (!options.Order) {
+      xml += "<b:Orders />";
+    } else {
+      const orderBy = options.Order.Conditions.map(c => {
+        return `<b:Order>
+                    <b:AttributeName>${c.AttributeName}</b:AttributeName>
+                    <b:OrderType>${c.OrderType}</b:OrderType>
+                  </b:Order>`;
+      });
+      xml += `\n<b:Orders>                  
+                     ${orderBy.join("")}
+                  </b:Orders>`;
+    }
 
     if (options.TopCount) {
       xml += "<b:TopCount>" + options.TopCount + "</b:TopCount>";
