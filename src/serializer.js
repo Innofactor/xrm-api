@@ -80,7 +80,7 @@ var Serializer = function() {
     if (options.LinkEntities) {
       const linkEntityXml = options.LinkEntities.map(linked => {
         let xmlConditions = '';
-        if (options.Criteria && options.Criteria.Conditions) {
+        if (linked.Criteria && linked.Criteria.Conditions) {
           const conditionXml = linked.Criteria.Conditions.map(c => {
             return `\n<b:Condition>
                          <b:AttributeName>${c.AttributeName}</b:AttributeName>
@@ -98,7 +98,7 @@ var Serializer = function() {
                       </b:Conditions>`;
         }
 
-        let filters = '';
+        let filters = [""];
         if (linked.Criteria.FilterOperators) {
           filters = linked.Criteria.FilterOperators.map(c => {
             return `<b:FilterOperator>${c}</b:FilterOperator>`;
@@ -121,7 +121,7 @@ var Serializer = function() {
                      <b:JoinOperator>${linked.JoinOperator}</b:JoinOperator>
                      <a:LinkCriteria>
                      ${filters.join("")}
-                     ${xmlConditions.join("")}                     
+                     ${xmlConditions}
                      </a:LinkCriteria>
                    </b:LinkEntity>`;
       });
