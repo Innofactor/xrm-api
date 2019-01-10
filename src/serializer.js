@@ -75,7 +75,61 @@ var Serializer = function() {
       xml += "<b:EntityName>" + options.EntityName + "</b:EntityName>";
     }
 
-    xml += "<b:Distinct>false</b:Distinct><b:LinkEntities />";
+    xml += "<b:Distinct>false</b:Distinct>";
+
+    if (options.LinkEntities) {
+      const linkEntityXml = options.LinkEntities.map(linked => {
+        let xmlConditions = '';
+        if (options.Criteria && options.Criteria.Conditions) {
+          const conditionXml = linked.Criteria.Conditions.map(c => {
+            return `\n<b:Condition>
+                         <b:AttributeName>${c.AttributeName}</b:AttributeName>
+                         <b:Operator>${c.Operator}</b:Operator>
+                         <b:Values xmlns:c="http://schemas.microsoft.com/2003/10/Serialization/Arrays">                        
+                          <c:anyType i:type="d:string" xmlns:d="http://www.w3.org/2001/XMLSchema">${
+                            c.Value
+                          }</c:anyType>
+                         </b:Values>
+                       </b:Condition>`;
+          });
+
+          xmlConditions = `\n<b:Conditions>
+                        ${conditionXml.join("")}
+                      </b:Conditions>`;
+        }
+
+        let filters = '';
+        if (linked.Criteria.FilterOperators) {
+          filters = linked.Criteria.FilterOperators.map(c => {
+            return `<b:FilterOperator>${c}</b:FilterOperator>`;
+          });
+        }
+
+        return `\n<b:LinkEntity>
+                     <b:LinkFromAttributeName>${
+                       linked.LinkFromAttributeName
+                     }</b:LinkFromAttributeName>
+                     <b:LinkFromEntityName>${
+                       linked.LinkFromEntityName
+                     }</b:LinkFromEntityName>
+                     <b:LinkToEntityName>${
+                       linked.LinkToEntityName
+                     }</b:LinkToEntityName>
+                     <b:LinkToAttributeName>${
+                       linked.LinkToAttributeName
+                     }</b:LinkToAttributeName>
+                     <b:JoinOperator>${linked.JoinOperator}</b:JoinOperator>
+                     <a:LinkCriteria>
+                     ${filters.join("")}
+                     ${xmlConditions.join("")}                     
+                     </a:LinkCriteria>
+                   </b:LinkEntity>`;
+      });
+
+      xml += "<b:LinkEntities>" + linkEntityXml.join("") + "</b:LinkEntities>";
+    } else {
+      xml += "<b:LinkEntities />";
+    }
 
     if (!options.Order) {
       xml += "<b:Orders />";
