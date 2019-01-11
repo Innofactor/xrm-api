@@ -79,7 +79,7 @@ var Serializer = function() {
 
     if (options.LinkEntities) {
       const linkEntityXml = options.LinkEntities.map(linked => {
-        let xmlConditions = '';
+        let xmlConditions = "";
         if (linked.Criteria && linked.Criteria.Conditions) {
           const conditionXml = linked.Criteria.Conditions.map(c => {
             return `\n<b:Condition>
@@ -98,11 +98,20 @@ var Serializer = function() {
                       </b:Conditions>`;
         }
 
+        let linkCriteriaXml = "";
         let filters = [""];
-        if (linked.Criteria.FilterOperators) {
+        if (linked.Criteria && linked.Criteria.FilterOperators) {
           filters = linked.Criteria.FilterOperators.map(c => {
             return `<b:FilterOperator>${c}</b:FilterOperator>`;
           });
+
+          linkCriteriaXml = `
+          <b:LinkCriteria>
+          ${filters.join("")}
+          ${xmlConditions}
+          </b:LinkCriteria>`;
+        } else {
+          linkCriteriaXml = '<b:LinkCriteria xsi:nil="true" />';
         }
 
         return `\n<b:LinkEntity>
@@ -117,12 +126,12 @@ var Serializer = function() {
                      }</b:LinkToEntityName>
                      <b:LinkToAttributeName>${
                        linked.LinkToAttributeName
-                     }</b:LinkToAttributeName>
+                     }</b:LinkToAttributeName>                     
+                     <b:EntityAlias>${linked.EntityAlias}</b:EntityAlias>
                      <b:JoinOperator>${linked.JoinOperator}</b:JoinOperator>
-                     <a:LinkCriteria>
-                     ${filters.join("")}
-                     ${xmlConditions}
-                     </a:LinkCriteria>
+                     <b:Columns xsi:nil="true" />
+                     <b:LinkEntities xsi:nil="true" />
+                     ${linkCriteriaXml}
                    </b:LinkEntity>`;
       });
 
