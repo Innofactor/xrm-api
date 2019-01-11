@@ -64,8 +64,8 @@ var Serializer = function() {
           xml += `\n<b:Criteria>                         
                     ${xmlConditions}   
                     ${filters.join("")}
-                    <a:Filters />   
-                    <a:IsQuickFindFilter>false</a:IsQuickFindFilter>                   
+                    <b:Filters />   
+                    <b:IsQuickFindFilter>false</b:IsQuickFindFilter>                   
                    </b:Criteria>`;
         }
       }
@@ -111,7 +111,7 @@ var Serializer = function() {
           ${xmlConditions}
           </b:LinkCriteria>`;
         } else {
-          linkCriteriaXml = '<b:LinkCriteria xsi:nil="true" />';
+          // linkCriteriaXml = '<b:LinkCriteria />';
         }
 
         return `\n<b:LinkEntity>
@@ -129,15 +129,16 @@ var Serializer = function() {
                      }</b:LinkToAttributeName>                     
                      <b:EntityAlias>${linked.EntityAlias}</b:EntityAlias>
                      <b:JoinOperator>${linked.JoinOperator}</b:JoinOperator>
-                     <b:Columns xsi:nil="true" />
-                     <b:LinkEntities xsi:nil="true" />
+                     <b:Columns>
+                        <b:AllColumns>true</b:AllColumns>
+                      </b:Columns>                     
                      ${linkCriteriaXml}
                    </b:LinkEntity>`;
       });
 
       xml += "<b:LinkEntities>" + linkEntityXml.join("") + "</b:LinkEntities>";
     } else {
-      xml += "<b:LinkEntities />";
+      // xml += "<b:LinkEntities />";
     }
 
     if (!options.Order) {
