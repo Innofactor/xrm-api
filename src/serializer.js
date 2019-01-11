@@ -121,12 +121,12 @@ var Serializer = function() {
                      <b:LinkFromEntityName>${
                        linked.LinkFromEntityName
                      }</b:LinkFromEntityName>
+                     <b:LinkToAttributeName>${
+                      linked.LinkToAttributeName
+                    }</b:LinkToAttributeName>          
                      <b:LinkToEntityName>${
                        linked.LinkToEntityName
-                     }</b:LinkToEntityName>
-                     <b:LinkToAttributeName>${
-                       linked.LinkToAttributeName
-                     }</b:LinkToAttributeName>                     
+                     }</b:LinkToEntityName>                             
                      <b:EntityAlias>${linked.EntityAlias}</b:EntityAlias>
                      <b:JoinOperator>${linked.JoinOperator}</b:JoinOperator>
                      <b:Columns>
