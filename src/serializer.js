@@ -331,23 +331,16 @@ var Serializer = function() {
   this.toXmlSetState = function(options) {
     var xml = "";
 
-    if (options.RequestName) {
-      xml = "<b:RequestName>" + options.RequestName + "</b:RequestName>";
-    }
-    if (options.RequestId) {
-      xml += "<b:RequestId>" + options.RequestId + "</b:RequestId>";
-    }
-
     if (options.Parameters) {
 
-      if (options.EntityMoniker){
+      if (options.EntityMoniker) {
         var entityMoniker = 
           "<b:KeyValuePairOfstringanyType>" + 
             "<c:key>EntityMoniker</c:key>" +
-            "<c:value  i:type='a:EntityReference'>" +
+            "<c:value i:type='b:EntityReference'>" +
               "<a:Id>" + options.EntityMoniker.Id + "</a:Id>" + 
               "<a:LogicalName>" + options.EntityMoniker.LogicalName + "</a:LogicalName>" + 
-              "<a:Name i:nil=\"true\" />" +
+              "<a:Name i:nil='true' />" +
             "</c:value>" +          
           "</b:KeyValuePairOfstringanyType>";        
       }
@@ -356,14 +349,22 @@ var Serializer = function() {
         return (
           "<b:KeyValuePairOfstringanyType>" + 
             "<c:key>" + c.key + "</c:key>" +
-            "<c:value i:type='d:string' xmlns:d='http://www.w3.org/2001/XMLSchema'>" +
-            c.value +
+            "<c:value i:type='b:OptionSetValue'>" +            
+              "<a:Value>" + c.value + "</a:Value>" + 
             "</c:value>" + 
           "</b:KeyValuePairOfstringanyType>"
         );
       });
       xml += "<b:Parameters>" + entityMoniker + atts.join("") + "</b:Parameters>";
     }
+
+    if (options.RequestId) {
+      xml += "<b:RequestId>" + options.RequestId + "</b:RequestId>";
+    }
+
+    if (options.RequestName) {
+      xml = "<b:RequestName>" + options.RequestName + "</b:RequestName>";
+    }    
 
     return xml;
   };
