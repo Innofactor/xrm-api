@@ -39,6 +39,10 @@ var Dynamics = function (settings) {
         return message.Execute(options);
     };
 
+    this.ExecuteSetState = function (options) {
+        return message.ExecuteSetState(options);
+    };
+    
     this.Delete = function (options) {
         return message.Delete(options);
     };

@@ -1,7 +1,7 @@
 /*global describe, before, beforeEach, it */
 
 var assert      = require("assert");
-var Dynamics    = require("../index.js");
+var Dynamics    = require("../Main.js");
 
 var settingsForMicrosoftOnlineAuth = {
         username: "",

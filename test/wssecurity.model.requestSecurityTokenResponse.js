@@ -1,6 +1,6 @@
 var assert = require('assert');
 var fs = require('fs');
-var RequestSecurityTokenResponse = require('../lib/ws-security/model/RequestSecurityTokenResponse');
+var RequestSecurityTokenResponse = require('../src/ws-security/model/RequestSecurityTokenResponse');
 
 var rstXml = fs.readFileSync(__dirname + '/assets/rstr.xml', 'utf-8');
 
