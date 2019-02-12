@@ -15,12 +15,15 @@ This fork was made for personal use to add missing features (customized) and mad
 
 Main differences from original module (xrm-api):
 
-* Updated code to ES2015;
-* Code was restructured to become more readable;
+* Added Criteria for RetrieveMultiple;
+* Added Sort for RetrieveMultiple;
+* Added LinkEntities for RetrieveMultiple;
+* New method: ExecuteSetState, used to change state of entity and trigger events on CRM (EntityMoniker).
 
 Future plans:
 
-* Criteria (filters for any type of 'values') support;
+* Updated code to ES2015;
+* Code was restructured to become more readable;
 * Update tests;
 * Update documentation;
 
@@ -48,9 +51,9 @@ The module exports a class and its constructor requires a configuration object w
 * `discoveryServiceAddress`: Optional. You should not change this value unless you are sure. default value is "https://dev.crm.dynamics.com/XRMServices/2011/Discovery.svc"
 
 ```
-var dynamics = require("dyn-xrm-api");
+const dynamics = require("dyn-xrm-api");
 const crmPort = +(process.env.CRM_PORT || 80);
-var dynamics = new dynamics({ 
+const _dynamics = new dynamics({ 
 	domain: process.env.CRM_HOST,
 	hostName: process.env.CRM_HOST,
 	port: crmPort,
@@ -71,9 +74,73 @@ All public methods has the same signature. The signature has one argument: `opti
 * `options` must be an object instance containig all parameters for the method.
 
 
-#### Information below is outdated!
+#### RetrieveMultiple(options)
 
+This method should be used to retrieve multiple entities.
 
+**Parameters:**
+* `options`: A required object instance containing authentication's and filters parameters:	
+	* `EntityName`: String. The name of the entity to create (Lead, Contact, etc. )
+	* `ColumnSet`: Array of strings with the names of the columns to retrieve (empty = *).	
+	* `TopCount`: Limit number of objects to return.	
+	* `Criteria`: Criteria to search on CRM (where clause).	
+	* `Order`: Field to order the search on CRM.		
+
+```
+ const options = {
+      EntityName: 'systemuser',
+      ColumnSet: [
+        'fullname',
+        'internalemailaddress',
+        'address1_telephone1',
+        'systemuserid',
+        'isdisabled',        
+        'modifiedon',
+      ],
+      TopCount: 100,
+      Criteria: {
+        Conditions: [
+          {
+            AttributeName: 'modifiedon',
+            Operator: 'GreaterEqual', // 'GreaterEqual', 'GreaterThan','LessEqual','LessThan','Equal','NotEqual'.
+            Value: dateFilter.toISOString(),
+          },
+        ],
+        FilterOperators: ['And'],
+      },
+      LinkEntities: [
+        {
+          LinkFromAttributeName: 'main_user',
+          LinkFromEntityName: 'account',
+
+          LinkToAttributeName: 'contactid',
+          LinkToEntityName: 'contact',
+
+          EntityAlias: 'ac',
+          JoinOperator: 'LeftOuter', // LeftOuter, Inner, Natural
+
+          ColumnSet: [
+		'fullname',
+		'internalemailaddress',						
+		],
+        },
+      ],
+      Order: {
+        Conditions: [
+          {
+            AttributeName: 'modifiedon',
+            OrderType: 1, // 0 Asc, 1 Desc
+          },
+        ],
+      },
+    };
+
+    const crmEntities = await this._dynamics.RetrieveMultiple(options);
+```
+
+# ------------------------------
+# Information below is outdated!
+# ------------------------------
 
 #### Create(options)
 

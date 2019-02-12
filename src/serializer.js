@@ -328,6 +328,46 @@ var Serializer = function() {
     return xml;
   };
 
+  this.toXmlSetState = function(options) {
+    var xml = "";
+
+    if (options.RequestName) {
+      xml = "<b:RequestName>" + options.RequestName + "</b:RequestName>";
+    }
+    if (options.RequestId) {
+      xml += "<b:RequestId>" + options.RequestId + "</b:RequestId>";
+    }
+
+    if (options.Parameters) {
+
+      if (options.EntityMoniker){
+        var entityMoniker = 
+          "<b:KeyValuePairOfstringanyType>" + 
+            "<c:key>EntityMoniker</c:key>" +
+            "<c:value  i:type='a:EntityReference'>" +
+              "<a:Id>" + options.EntityMoniker.Id + "</a:Id>" + 
+              "<a:LogicalName>" + options.EntityMoniker.LogicalName + "</a:LogicalName>" + 
+              "<a:Name i:nil=\"true\" />" +
+            "</c:value>" +          
+          "</b:KeyValuePairOfstringanyType>";        
+      }
+      
+      var atts = options.Parameters.map(function(c) {
+        return (
+          "<b:KeyValuePairOfstringanyType>" + 
+            "<c:key>" + c.key + "</c:key>" +
+            "<c:value i:type='d:string' xmlns:d='http://www.w3.org/2001/XMLSchema'>" +
+            c.value +
+            "</c:value>" + 
+          "</b:KeyValuePairOfstringanyType>"
+        );
+      });
+      xml += "<b:Parameters>" + entityMoniker + atts.join("") + "</b:Parameters>";
+    }
+
+    return xml;
+  };
+
   /* Para asociar y desasociar
     {
         EntityName: "?",
