@@ -114,6 +114,18 @@ var Serializer = function() {
           // linkCriteriaXml = '<b:LinkCriteria />';
         }
 
+        var columset = linked.ColumnSet.map(function(c) {
+          return "<c:string>" + c + "</c:string>";
+        });
+  
+        var columSetXml =
+          "<b:ColumnSet>" +
+          "<b:AllColumns>false</b:AllColumns>" +
+          '<b:Columns xmlns:c="http://schemas.microsoft.com/2003/10/Serialization/Arrays">' +
+          columset.join("") +
+          "</b:Columns>" +
+          "</b:ColumnSet>";
+
         return `\n<b:LinkEntity>
                      <b:LinkFromAttributeName>${
                        linked.LinkFromAttributeName
@@ -129,9 +141,7 @@ var Serializer = function() {
                      }</b:LinkToEntityName>                             
                      <b:EntityAlias>${linked.EntityAlias}</b:EntityAlias>
                      <b:JoinOperator>${linked.JoinOperator}</b:JoinOperator>
-                     <b:Columns>
-                        <b:AllColumns>true</b:AllColumns>
-                      </b:Columns>                     
+                     ${columSetXml}                   
                      ${linkCriteriaXml}
                    </b:LinkEntity>`;
       });
