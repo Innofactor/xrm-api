@@ -39,23 +39,23 @@
   ],
   "license": "MIT",
   "dependencies": {
-    "agentkeepalive": "^2.2.0",
-    "cookie": "^0.3.1",
-    "httpntlm": "^1.6.1",
+    "agentkeepalive": "^4.1.4",
+    "cookie": "^0.4.1",
+    "httpntlm": "^1.7.6",
     "mem-cache": "^0.0.5",
     "path": "^0.12.7",
     "request": "^2.74.0",
     "traverse": "^0.6.6",
-    "uuid": "^3.0.0",
-    "xml2js": "^0.4.17",
-    "xmldom": "^0.1.22",
-    "xpath": "^0.0.23"
+    "uuid": "^8.3.2",
+    "xml2js": "^0.4.23",
+    "xmldom": "^0.5.0",
+    "xpath": "^0.0.32"
   },
   "devDependencies": {
-    "assert": "^1.4.1",
-    "mocha": "^3.0.2",
-    "mockuire": "^0.1.0",
-    "nock": "^8.0.0"
+    "assert": "^2.0.0",
+    "mocha": "^8.3.2",
+    "mockuire": "^2.1.0",
+    "nock": "^13.0.11"
   },
   "directories": {
     "test": "test"
