@@ -1,3 +1,6 @@
+# End of life notice
+**This repository has not been maintained since 2016**
+
 # MS Dynamics CRM client for Nodejs
 This node module provides a set of methods to interact with MS Dynamics CRM Online services.
 This is a pure SOAP proxy that supports LiveId authentication.
